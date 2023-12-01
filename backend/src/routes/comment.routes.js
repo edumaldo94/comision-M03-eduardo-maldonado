@@ -1,9 +1,10 @@
-import express from 'express';
-const router = express.Router();
-import * as commentController from '../controllers/commentController.js';
+import {Router} from 'express'
+import { createComment, deleteComment, getComments } from '../controllers/commentController.js'
+import { authRequired } from '../middlewares/validateToken.js';
+export const routes = Router();
 
-router.post('/create', commentController.createComment);
-router.delete('/:id', commentController.deleteComment);
-router.get('/', commentController.getComments);
+routes.post('/posts/:postId/comments', authRequired, createComment);
+routes.delete('/deleteComment/:id', authRequired, deleteComment);
+routes.get('/posts/:postId', authRequired, getComments);
 
-export default router;
+export default routes;

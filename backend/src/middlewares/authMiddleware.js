@@ -1,24 +1,48 @@
-/*import jwt from 'jsonwebtoken';
+import {body, validationResult} from 'express-validator'
 
-const authMiddleware = (req, res, next) => {
-  // Obtener el token del encabezado de autorización
-  const token = req.headers.authorization;
+export const validateRegister = [
+body("username")
+.isLength({min: 4})
+.withMessage("El Usuario debe tener al menos 4 caracteres"),
 
-  if (!token) {
-    return res.status(401).json({ message: 'Acceso no autorizado, se requiere token' });
-  }
 
-  try {
-    // Verificar y decodificar el token
-    const decoded = jwt.verify(token, 'secreto');
+body("email")
+.isEmail()
+.withMessage("ingrese un email válido")
+.notEmpty()
+.withMessage("Email no debe estar vacío"),
 
-    // Agregar el ID del usuario decodificado al objeto de solicitud para su uso posterior
-    req.userId = decoded.userId;
-    next(); // Permitir continuar con la solicitud si el token es válido
-  } catch (error) {
-    return res.status(401).json({ message: 'Token inválido' });
-  }
-};
+body("password")
+.notEmpty()
+.isLength({min: 3})
+.withMessage("El password debe tener al menos 3 caracteres"),
 
-export default authMiddleware;
-*/
+ ];
+
+
+
+ export const validateLogin = [
+
+  body("email")
+  .isEmail()
+  .withMessage("ingrese un email válido")
+  .notEmpty()
+  .withMessage("Email no debe estar vacío"),
+  
+  body("password")
+  .notEmpty()
+  .isLength({min: 3})
+  .withMessage("El password debe tener al menos 3 caracteres"),
+  
+   ];
+
+   //validacion de error
+
+   export const handleErrorValidations = (req,res,next)=>{
+    const error= validationResult(req)
+
+    if(!error.isEmpty()){
+      return res.status(400).json({message:"Error en la validación de atributos ",error})
+    }
+    next()
+   }

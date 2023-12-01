@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-const commentSchema = new mongoose.Schema({
+const commentSchema = new Schema({
   author: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -15,6 +15,6 @@ const commentSchema = new mongoose.Schema({
   versionKey:false
 });
 
-const Comment = mongoose.model('Comment', commentSchema);
+const Comment = model('Comment', commentSchema);
 
 export default Comment;

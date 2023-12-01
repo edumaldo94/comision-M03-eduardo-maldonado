@@ -74,11 +74,11 @@ export const updatePost = async (req, res) => {
 
   // Lógica para eliminar un post existente
 export const deletePost = async (req, res) => {
-
+  const {id}= req.params
 try {
   
 
-  const deletePost= await Post.findByIdAndUpdate(id, req.body, {new: true}).populate('author'); 
+  const deletePost= await Post.findByIdAndDelete(id); 
 
   if(!deletePost) return res.status(404).json({message: "Post no encontrado"})
   res.status(200).json({message:"Post eliminado"})
