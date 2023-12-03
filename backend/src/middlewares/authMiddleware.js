@@ -30,7 +30,6 @@ body("password")
   .withMessage("Email no debe estar vacío"),
   
   body("password")
-  .notEmpty()
   .isLength({min: 3})
   .withMessage("El password debe tener al menos 3 caracteres"),
   
@@ -42,7 +41,9 @@ body("password")
     const error= validationResult(req)
 
     if(!error.isEmpty()){
-      return res.status(400).json({message:"Error en la validación de atributos ",error})
+      return res.status(400).json([error.errors[0].msg])
+
+     // return res.status(400).json({message:"Error en la validación de atributos ",error})
     }
     next()
    }
