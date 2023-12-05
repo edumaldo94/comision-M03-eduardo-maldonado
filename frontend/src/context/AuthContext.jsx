@@ -1,5 +1,7 @@
-import { createContext, useContext, useState } from "react";
-import {registerReq, loginReq} from "../api/auth"
+import { createContext, useContext, useEffect, useState } from "react";
+import {registerReq, loginReq, verifyToken} from "../api/auth"
+import Cookies from "js-cookie";
+
 
 export const AuthContext= createContext()
 
@@ -38,9 +40,53 @@ setisAuth(true)
     }
 };
 
+const signout= ()=>{
+    Cookies.remove("token")
+    setisAuth(false)
+    setUser(null)
+}
+
+//manejo de errores
+useEffect(()=>{
+if(errors.length > 0){
+const timer = setTimeout(() =>{
+    setErrors([]);
+
+}, 3000)
+
+return ()=> clearTimeout(timer)
+}
+},[errors])
+
+
+//manejo de cookies
+useEffect(()=>{
+    async function verifyLogin() {
+        const cookies= Cookies.get();
+        if(cookies.token){
+try {
+    const res= await verifyToken(cookies.token);
+    console.log(res)
+    if (res.data) {
+        setisAuth(true);
+        setUser(res.data);
+        
+    }else{
+        setisAuth(false);
+    }
+} catch (error) {
+    setisAuth(false);
+    setUser(null);
+}
+        }
+        
+    }
+    verifyLogin();
+    },[])
+
 return (
 
-    <AuthContext.Provider value={{signup, signin, isAuth, errors,user}}>
+    <AuthContext.Provider value={{signup, signin, isAuth, errors, signout,user}}>
         {children}
         </AuthContext.Provider>
 );

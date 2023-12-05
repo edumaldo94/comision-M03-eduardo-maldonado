@@ -3,6 +3,7 @@ import {Link} from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
 import {useNavigate} from "react-router-dom"
 import { useEffect } from "react"
+import NavbarPublic from "../components/NavbarPublic"
 export const Login = ()=>{
 
 const {register, handleSubmit, formState:{errors}} = useForm()
@@ -23,6 +24,8 @@ const onSubmit = handleSubmit(async(values)=>{
      signin(values)
 })
     return(
+        <>
+           <NavbarPublic/>
         <div className="flex h-screen items-center justify-center">
 <div className="bg-zinc-900 max-w-md p-8 rounded-md">
 
@@ -44,5 +47,6 @@ const onSubmit = handleSubmit(async(values)=>{
         className="px-3 font-semibold rounded-md bg-red-500 text-white">Registrarse</Link></p>
         </div>
         </div>
+        </>
     ) 
 }

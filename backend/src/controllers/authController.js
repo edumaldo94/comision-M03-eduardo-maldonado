@@ -1,7 +1,8 @@
 import  User  from '../models/user.js'
 import bcrypt from 'bcrypt'
-//import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 import { createAccessToken } from '../middlewares/jwt.validator.js'
+import { settingDotEnvSecret } from '../config/dotenv.js';
 //registro de usuario
 export const register= async(req,res)=>{
 const {username,email,password} = req.body;
@@ -45,11 +46,11 @@ const {email, password} = req.body;
 try {
     
 const userFound= await User.findOne({email})
-if(!userFound) return res.status(400).json({message:"Usuario no encontrado"})
+if(!userFound) return res.status(400).json(["Usuario no encontrado"])
 
 const match = await bcrypt.compare(password, userFound.password)
 
-if(!match) return res.status(400).json({message: "Contraseña Incorrecta"})
+if(!match) return res.status(400).json(["Contraseña Incorrecta"])
 
 const token= await createAccessToken({id: userFound._id})
 res.cookie('token', token);
@@ -92,3 +93,25 @@ try {
 }
 
 }
+
+const {secret}=  settingDotEnvSecret()
+export const verifyToken= async(req,res)=>{
+
+    const { token } = req.cookies;
+
+    if (!token) return res.status(401).json({ message: "No autorizado" });
+  
+    jwt.verify(token, secret, async (err, user) => {
+      if (err) return res.status(401).json({ message: "No autorizado" });
+  
+      const userFound = await User.findById(user.id);
+      if (!userFound) return res.status(401).json({ message: "No autorizado" });
+  
+      return res.json({
+        id: userFound._id,
+        username: userFound.username,
+        email: userFound.email,
+      });
+    });
+    
+    }

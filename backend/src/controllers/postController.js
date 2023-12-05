@@ -34,7 +34,7 @@ res.status(200).json(postFound)
  // Lógica para crear un nuevo post
 export const createPost = async (req, res) => {
  
-  const {title, description, imageURL} =req.body
+  const {title, description, createdAt,imageURL} =req.body
 
   try {
     
@@ -43,6 +43,7 @@ export const createPost = async (req, res) => {
   description,
   author:req.user.id,
   //comments:req.comments.id, 
+  createdAt,
   imageURL
   
  })

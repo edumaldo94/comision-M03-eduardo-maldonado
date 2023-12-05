@@ -1,5 +1,5 @@
 import {Router} from 'express'
-import { register, login, logout, profile } from '../controllers/authController.js'
+import { register, login, logout, profile, verifyToken } from '../controllers/authController.js'
 import { authRequired } from '../middlewares/validateToken.js';
 import { validateRegister, validateLogin, handleErrorValidations } from '../middlewares/authMiddleware.js';
 export const routes = Router();
@@ -17,6 +17,10 @@ routes.post('/login', validateLogin, handleErrorValidations, login)
 routes.post('/logout', logout)
 
 
+routes.get('/verifyToken', verifyToken)
+
 routes.get('/profile', authRequired, profile)
+
+
 
 export default routes;
