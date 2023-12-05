@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 
 const navigation = [
+  { name: "Home", href: "/", current: true },
   { name: "Login", href: "/login", current: true },
   { name: "Register", href: "/register", current: true },
   //{ name: "Nueva Tarea", href: "/add-task", current: true },

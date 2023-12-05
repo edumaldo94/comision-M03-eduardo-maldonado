@@ -2,7 +2,7 @@ import axios from "./setCredentials";
 
 export const getPostReq = () => axios.get("/get");
 
-export const getPostByIdReq = (id) => axios.get(`/get/${id}`);
+export const getPostByIdReq = (id) => axios.get(`/user/${id}/posts`);
 
 export const createPostReq = (post) => axios.post("/create", post);
 

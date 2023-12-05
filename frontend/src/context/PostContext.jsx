@@ -14,10 +14,6 @@ export const PostProvider= ({children})=>{
 
 const [post, setPost]= useState([])
 
-
-
-
-
 const createPost= async(post)=>{
     //console.log(post)
 const res= await createPostReq(post)
@@ -47,6 +43,7 @@ const getAllPost = async () => {
 
  //4) Buscar por Id
  const getPostById = async (id) => {
+  console.log("bbb "+id)
     try {
       const res = await getPostByIdReq(id);
       // console.log(res);

@@ -18,6 +18,7 @@ useEffect(() => {
       const post = await getPostById(params.id);
       //el setValue del useForm
       setValue("title", post.title);
+      setValue("imageURL", post.imageURL)
       setValue("description", post.description);
     }
   }
@@ -52,6 +53,14 @@ const navigate = useNavigate();
             {...register("title")}
             autoFocus
           />
+          <input
+  className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
+  type="url"
+  placeholder="Enlace de la imagen"
+  {...register("imageURL")}
+  autoFocus
+/>
+
           <textarea
             className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
             rows="3"

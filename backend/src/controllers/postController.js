@@ -4,9 +4,7 @@ import Post from '../models/post.js';
 export const getPosts = async (req, res) => {
   
   try {
-    const allPost= await Post.find({
-  author: req.user.id
-}).populate('author')
+    const allPost= await Post.find().populate('author')
 res.status(200).json(allPost)
   } catch (error) {
     return res.status(400).json({message:"error al buscar el POst "+ error})
@@ -17,18 +15,14 @@ res.status(200).json(allPost)
 // Lógica para obtener un post por Id los posts
 export const getPostsById = async (req, res) => {
   
-const {id}= req.params
+  const userId = req.params.userId; // O el nombre que le hayas dado a tu parámetro de ruta
 
-try {
-  
-const postFound= await Post.findById(id);
-
-if(!postFound) return res.status(404).json({message: "Post no encontrado"})
-res.status(200).json(postFound)
-} catch (error) {
-  res.status(400).json({message: "Error al buscar la tarea "+error})
-}
-
+  try {
+    const postsByUser = await Post.find({ author: userId  }); // Busca los posts cuyo campo 'author' coincida con userId
+    res.status(200).json(postsByUser);
+  } catch (error) {
+    res.status(400).json({ message: "Error al buscar los posts del usuario: " + error });
+  }
 };
 
  // Lógica para crear un nuevo post
