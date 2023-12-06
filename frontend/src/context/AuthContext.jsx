@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import {registerReq, loginReq, verifyToken} from "../api/auth"
+import {registerReq, loginReq, verifyToken, profileReq, perfilComentReq} from "../api/auth"
 import Cookies from "js-cookie";
 
 
@@ -12,6 +12,19 @@ export const useAuth=() =>{
 
 return context
 }
+
+const perfilComent = async (id) => {
+  
+    try {
+      const res = await perfilComentReq(id);
+   
+      //retornamos para que lo pueda ver en el taskFormPage
+      return res.data;
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 export const AuthProvider= ({children})=>{
 
@@ -86,7 +99,7 @@ try {
 
 return (
 
-    <AuthContext.Provider value={{signup, signin, isAuth, errors, signout,user}}>
+    <AuthContext.Provider value={{signup, signin, isAuth, errors, signout,perfilComent, user}}>
         {children}
         </AuthContext.Provider>
 );

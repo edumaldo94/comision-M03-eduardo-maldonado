@@ -1,5 +1,5 @@
 import {Router} from 'express'
-import { register, login, logout, profile, verifyToken } from '../controllers/authController.js'
+import { register, login, logout, profile, verifyToken, perfilComent } from '../controllers/authController.js'
 import { authRequired } from '../middlewares/validateToken.js';
 import { validateRegister, validateLogin, handleErrorValidations } from '../middlewares/authMiddleware.js';
 export const routes = Router();
@@ -21,6 +21,6 @@ routes.get('/verifyToken', verifyToken)
 
 routes.get('/profile', authRequired, profile)
 
-
+routes.get('/profileComent/:userId', authRequired, perfilComent)
 
 export default routes;

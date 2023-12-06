@@ -4,21 +4,22 @@ import Post from '../models/post.js';
 export const getPosts = async (req, res) => {
   
   try {
-    const allPost= await Post.find().populate('author')
+    const allPost= await Post.find().populate('author').populate('comments')
 res.status(200).json(allPost)
   } catch (error) {
     return res.status(400).json({message:"error al buscar el POst "+ error})
   }
 
+
+  
 };
 
 // Lógica para obtener un post por Id los posts
 export const getPostsById = async (req, res) => {
   
   const userId = req.params.userId; // O el nombre que le hayas dado a tu parámetro de ruta
-
   try {
-    const postsByUser = await Post.find({ author: userId  }); // Busca los posts cuyo campo 'author' coincida con userId
+    const postsByUser = await Post.find({ author: userId  }).populate('comments');; // Busca los posts cuyo campo 'author' coincida con userId
     res.status(200).json(postsByUser);
   } catch (error) {
     res.status(400).json({ message: "Error al buscar los posts del usuario: " + error });

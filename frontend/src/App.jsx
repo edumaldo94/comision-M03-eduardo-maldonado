@@ -8,14 +8,14 @@ import { Profile } from "./pages/Profile"
 import { PrivateRoutes } from "./routes/PrivateRoutes"
 import { PostForm } from "./pages/PostForm"
 import { PostProvider } from "./context/PostContext"
-
+import { CommentsProvider } from "./context/CommentsContext"
 
 export const App= ()=>{
 
   return (
     <AuthProvider>
       <PostProvider>
-
+<CommentsProvider>
  <Router>
   <Routes>
 
@@ -35,6 +35,7 @@ export const App= ()=>{
   </Routes>
  </Router>
  
+ </CommentsProvider>
  </PostProvider>
  </AuthProvider>
  )

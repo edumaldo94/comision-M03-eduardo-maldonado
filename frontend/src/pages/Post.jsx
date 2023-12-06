@@ -4,16 +4,19 @@ import { useAuth } from "../context/AuthContext";
 import { useEffect, useState } from "react"; // Importa useState
 import { usePost } from "../context/PostContext";
 import { PostCard } from "../components/PostCard";
+import {useComments} from "../context/CommentsContext"
 
 export const Post = () => {
   const { user } = useAuth();
-  const { getPostById } = usePost(); // No es necesario almacenar 'post' en una variable local
+  const { getPostById, post } = usePost(); // No es necesario almacenar 'post' en una variable local
 
   const [resultArray, setResultArray] = useState([]); // Nuevo estado para almacenar los datos de 'resultArray'
+
 
   useEffect(() => {
     getPostById(user.id)
       .then((resultArray) => {
+        
         setResultArray(resultArray); // Actualiza el estado con los datos obtenidos de 'resultArray'
       })
       .catch((error) => {

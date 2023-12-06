@@ -3,7 +3,7 @@ import NavbarPublic from "../components/NavbarPublic"
 import { useAuth } from "../context/AuthContext";
 import { useEffect } from "react";
 import { usePost } from "../context/PostContext";
-import { HomeCard } from "../components/HomeCard";
+import { PostCard } from "../components/PostCard";
 
 
 
@@ -40,7 +40,7 @@ export const Home= ()=>{
         <h1>Home Page</h1>
         <div className="grid grid-cols-3 gap-2">
         {post.map((post, i) => (
-          <HomeCard post={post} key={i} />
+          <PostCard post={post} key={i} />
         ))}
       </div>
 

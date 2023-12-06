@@ -5,7 +5,8 @@ const PostContext= createContext()
 
 export const usePost=()=>{
     const context= useContext(PostContext);
-    if(!context) throw new Error("Error en el contexto de las tareas")
+    
+    if(!context) throw new Error("Error en el contexto(Post) de las tareas")
     return context;
 }
 
@@ -43,12 +44,13 @@ const getAllPost = async () => {
 
  //4) Buscar por Id
  const getPostById = async (id) => {
-  console.log("bbb "+id)
+  
     try {
       const res = await getPostByIdReq(id);
-      // console.log(res);
+   
       //retornamos para que lo pueda ver en el taskFormPage
       return res.data;
+
     } catch (error) {
       console.log(error);
     }

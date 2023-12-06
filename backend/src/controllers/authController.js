@@ -94,6 +94,24 @@ try {
 
 }
 
+export const perfilComent= async(req,res)=>{
+    const userId = req.params.userId; // Obtiene el ID del usuario de los parámetros de la URL
+  
+    try {
+      const user = await User.findById(userId); // Busca el usuario por su ID en la base de datos
+  
+      if (!user) {
+        return res.status(404).json({ message: 'Usuario no encontrado' });
+      }
+  
+      res.status(200).json(user); // Devuelve el usuario encontrado
+    } catch (error) {
+      console.error('Error al buscar usuario por ID:', error);
+      res.status(500).json({ message: 'Error al buscar usuario por ID' });
+    }
+
+}
+
 const {secret}=  settingDotEnvSecret()
 export const verifyToken= async(req,res)=>{
 

@@ -1,12 +1,12 @@
-import { createCommentReq, deleteCommentReq, getCommentsReq } from "../api/commentsAxios";
-import { createContext, useContext, useState } from "react";
 
+import { createContext, useContext, useState } from "react";
+import { createCommentReq, deleteCommentReq, getCommentsReq, getAllCommentsReq } from "../api/commentsAxios";
 const CommentsContext = createContext();
 
 export const useComments = () => {
-    const context = useContext(CommentsContext);
-    if (!context) throw new Error("Error en el contexto de las tareas");
-    return context;
+    const contextb = useContext(CommentsContext);
+    if (!contextb) throw new Error("Error en el contexto(coments) de las tareas");
+    return contextb;
 };
 
 export const CommentsProvider = ({ children }) => {
@@ -21,7 +21,7 @@ export const CommentsProvider = ({ children }) => {
         }
     };
 
-    const getAllComments = async (postId) => {
+    const getAllByIdPostComments = async (postId) => {
         
         try {
             const res = await getCommentsReq(postId);
@@ -30,6 +30,15 @@ export const CommentsProvider = ({ children }) => {
             console.log(error);
         }
     };
+    const getAllcomments = async () => {
+        const res = await getAllCommentsReq();
+        // console.log(res);
+        try {
+            setComments(res.data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
 
     const deleteComment = async (commentId) => {
         try {
@@ -46,8 +55,9 @@ export const CommentsProvider = ({ children }) => {
         <CommentsContext.Provider
             value={{
                 createComment,
-                getAllComments,
+                getAllByIdPostComments,
                 deleteComment,
+                getAllcomments,
                 comments
             }}
         >
