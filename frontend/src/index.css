@@ -7,3 +7,11 @@ background-color: black;
 color: white;
 
 }
+
+.custom-input {
+    /* Otros estilos */
+    /* Cambiar el fondo del input a negro */
+    background-color: black;
+    /* Definir el color del texto para que sea visible en el fondo negro */
+    color: white; /* Puedes ajustar el color del texto a tu preferencia */
+  }

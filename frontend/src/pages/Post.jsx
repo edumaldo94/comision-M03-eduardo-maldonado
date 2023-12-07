@@ -36,8 +36,8 @@ export const Post = () => {
   return (
     <>
       <NavbarPrivate />
-      <h1>Post Page</h1>
-      <div className="grid grid-cols-3 gap-2">
+      <h1 className="text-5xl font-semibold text-white text-center w-full mt-4">Tus Post De Viajes</h1>
+      <div className="flex grid justify-center">
         {resultArray.map((individualPost, i) => (
           <PostCard post={individualPost} key={i} />
         ))}

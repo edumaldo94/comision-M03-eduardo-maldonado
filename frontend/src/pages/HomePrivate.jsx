@@ -1,14 +1,14 @@
-import NavbarPublic from "../components/NavbarPublic"
+import NavbarPrivate from "../components/NavbarPrivate"
 
 import { useAuth } from "../context/AuthContext";
 import { useEffect } from "react";
 import { usePost } from "../context/PostContext";
-import { HomeCard } from "../components/HomeCard";
+import { HomeCardPrivate } from "../components/HomeCardPrivate";
 
 
 
 
-export const Home= ()=>{
+export const HomePrivate= ()=>{
 
 
   const { user } = useAuth();
@@ -26,7 +26,7 @@ export const Home= ()=>{
   if (post.length === 0)
     return (
       <>
-        <NavbarPublic />
+        <NavbarPrivate />
         <h1>No Tiene Tareas</h1>
       </>
     );
@@ -36,11 +36,11 @@ export const Home= ()=>{
 
     return(
         <>
-          <NavbarPublic/>
+          <NavbarPrivate/>
         <h1 className="text-5xl font-semibold text-white text-center w-full mt-4">Viajes De la Comunidad</h1>
         <div className="grid grid-cols-3 gap-2">
         {post.map((post, i) => (
-          <HomeCard post={post} key={i} />
+          <HomeCardPrivate post={post} key={i} />
         ))}
       </div>
 

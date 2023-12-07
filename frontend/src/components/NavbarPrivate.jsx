@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const navigation = [
-  { name: "Home", href: "/", current: true },
+  { name: "Home", href: "/home", current: true },
   { name: "Tareas", href: "/post", current: true },
   { name: "Nueva Tarea", href: "/add-post", current: true },
   { name: "Perfil", href: "/profile", current: true },

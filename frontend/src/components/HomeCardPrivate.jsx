@@ -2,10 +2,12 @@ import { usePost } from "../context/PostContext";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-export const PostCard = ({ post }) => {
- 
+import { useComments } from "../context/CommentsContext";
+export const HomeCardPrivate = ({ post }) => {
+
   const { deletePost } = usePost();
   const{ perfilComent }= useAuth()
+  const{ createComment }= useComments()
   const [commentAuthors, setCommentAuthors] = useState([]);
   useEffect(() => {
     const fetchCommentAuthors = async () => {
@@ -24,20 +26,36 @@ export const PostCard = ({ post }) => {
 
     fetchCommentAuthors();
   }, [perfilComent, post.comments]);
+  const [newComment, setNewComment] = useState('');
 
+  const handleCommentSubmit = async () => {
+    // Lógica para enviar el comentario usando la función createComment del CommentsProvider
+    try {
+      // Llama a la función createComment con el ID del post y el nuevo comentario
+      await createComment(post._id, { description: newComment });
+      // Puedes actualizar el estado local con el nuevo comentario si es necesario
+      // setComments([...comments, newComment]);
+      setNewComment(''); // Limpia el campo del comentario después de enviarlo
+    } catch (error) {
+      console.error('Error al enviar el comentario:', error);
+    }
+  };
   //   console.log(task);
   return (
      
     <div className="flex flex-col bg-zinc-800 max-w-md w-full p-10 rounded-md mt-4" >
       <header className="flex justify-between">
-     
+      <div>
+        
+        <h1 className="text-2xl font-semibold text-white"> @{post.author.username} </h1>
+      </div>
     
       </header>
         <div className="text-center w-full"> {/* Añade esta div con la clase text-center */}
         <h1 className="text-2xl font-semibold text-white">{post.title}</h1>
 
       </div> 
-      <p className="mt-4">{post.description}</p>
+      <p className="">{post.description}</p>
        {post.imageURL && ( // Verifica si hay una URL de imagen definida en post.imageURL
       <img src={post.imageURL} alt="Imagen" className="w-full mt-4 h-full w-full object-cover" />
     )}
@@ -60,17 +78,23 @@ export const PostCard = ({ post }) => {
           ))}
           </div>
         </ul>
-     
+       
       </div>
-
-   
-      
-  <div className="flex gap-x-3 items-center mt-10">
-          <button onClick={() => { deletePost(post._id);}}   
-          className="bg-red-500 hover:bg-blue-600 text-white font-semibold py-1 px-1 rounded"> Eliminar </button>
-          <Link to={`/post/${post._id}`}
-            className="bg-gray-500 hover:bg-blue-600 text-white font-semibold py-1 px-1 rounded">Editar</Link>
-        </div>
+      <div className="bg-zinc-700 max-w-md w-full p-5 rounded-md mt-4">
+      <input
+        type="text"
+        value={newComment}
+        onChange={(e) => setNewComment(e.target.value)}
+        placeholder="Escribe tu comentario"
+        className="custom-input"
+      />
+      <button
+        className="bg-green-500 hover:bg-blue-600 text-white font-semibold py-1 px-1 rounded mt-2"
+        onClick={handleCommentSubmit}
+      >
+        Comentar
+      </button>
+    </div>
 
     </div>
     
