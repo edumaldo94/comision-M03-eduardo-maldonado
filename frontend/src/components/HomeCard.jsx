@@ -51,7 +51,7 @@ export const HomeCard = ({ post }) => {
 <div className="bg-zinc-700 max-w-md w-full p-5 rounded-md mt-4">
         <h2>Comentarios:</h2>
         <ul>
-          <div className="bg-yellow-700 max-w-md w-full p-5 rounded-md mt-4">
+          <div className="bg-yellow-700 max-w-md w-full p-5 rounded-md mt-4" >
           {commentAuthors.map((author, index) => (
             <li key={post.comments[index]._id}>
               <div className="bg-zinc-900 rounded-md  mt-2">

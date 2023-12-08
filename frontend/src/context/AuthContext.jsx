@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import {registerReq, loginReq, verifyToken, profileReq, perfilComentReq} from "../api/auth"
+import {registerReq, loginReq, verifyToken, profileReq, perfilComentReq, updatePerfilReq} from "../api/auth"
 import Cookies from "js-cookie";
 
 
@@ -12,6 +12,25 @@ export const useAuth=() =>{
 
 return context
 }
+
+const updatePerfil = async (id, formData) => {
+    try {
+        const res = await updatePerfilReq(id, formData);
+        // Actualizar el perfil si es necesario
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+const perfilUser = async () => {
+    try {
+        const res = await profileReq();
+      
+        return res.data
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 const perfilComent = async (id) => {
   
@@ -47,7 +66,7 @@ const signin= async (user) =>{
         const res= await loginReq(user);
         console.log(res.data);
         setUser(res.data)
-setisAuth(true)
+        setisAuth(true)
     } catch (error) {
         setErrors(error.response.data)
     }
@@ -99,7 +118,7 @@ try {
 
 return (
 
-    <AuthContext.Provider value={{signup, signin, isAuth, errors, signout,perfilComent, user}}>
+    <AuthContext.Provider value={{signup, signin,isAuth, errors, signout,perfilComent, updatePerfil, perfilUser,user}}>
         {children}
         </AuthContext.Provider>
 );

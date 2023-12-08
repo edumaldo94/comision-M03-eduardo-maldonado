@@ -38,7 +38,7 @@ export const Home= ()=>{
         <>
           <NavbarPublic/>
         <h1 className="text-5xl font-semibold text-white text-center w-full mt-4">Viajes De la Comunidad</h1>
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-3 gap-2 ">
         {post.map((post, i) => (
           <HomeCard post={post} key={i} />
         ))}

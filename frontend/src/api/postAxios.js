@@ -4,6 +4,8 @@ export const getPostReq = () => axios.get("/get");
 
 export const getPostByIdReq = (id) => axios.get(`/user/${id}/posts`);
 
+export const getPostsByIdPostReq = (id) => axios.get(`/posteo/${id}`);
+
 export const createPostReq = (post) => axios.post("/create", post);
 
 export const updatePostReq = (id, post) => axios.put(`/update/${id}`, post);

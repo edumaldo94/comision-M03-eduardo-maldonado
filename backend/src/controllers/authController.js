@@ -44,7 +44,7 @@ export const login= async(req,res)=>{
 const {email, password} = req.body;
 
 try {
-    
+  
 const userFound= await User.findOne({email})
 if(!userFound) return res.status(400).json(["Usuario no encontrado"])
 
@@ -54,8 +54,11 @@ if(!match) return res.status(400).json(["Contraseña Incorrecta"])
 
 const token= await createAccessToken({id: userFound._id})
 res.cookie('token', token);
-res.json({
+
+res.status(200).json({
+
     message: "Bienvenido",
+    id:userFound._id,
     username: userFound.username,
     email: userFound.email
 });
@@ -84,6 +87,7 @@ try {
     console.log(userFound)
     if(!userFound) return res.status(400).json({message: "Usuario no encontrado!"})
     res.json({
+  
         message: "Perfil",
         username: userFound.username,
         email: userFound.email
@@ -133,3 +137,25 @@ export const verifyToken= async(req,res)=>{
     });
     
     }
+
+    export    const updateUserProfile = async (req, res) => {
+        const userId = req.params.userId; // ID del usuario a actualizar
+        const updatedFields = req.body; // Campos actualizados
+      
+        try {
+          // Encuentra y actualiza el usuario en la base de datos
+          const updatedUser = await User.findByIdAndUpdate(userId, updatedFields, {
+            new: true, // Para devolver el usuario actualizado
+            runValidators: true, // Para validar los campos actualizados
+          });
+      
+          if (!updatedUser) {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+          }
+      
+          res.status(200).json({ user: updatedUser });
+        } catch (error) {
+          console.error('Error al actualizar el perfil del usuario:', error);
+          res.status(500).json({ message: 'Error al actualizar el perfil del usuario' });
+        }
+      };

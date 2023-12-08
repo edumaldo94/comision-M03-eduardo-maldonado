@@ -3,20 +3,22 @@ import {useForm} from "react-hook-form"
 import { usePost } from "../context/PostContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
-export const PostForm= ()=>{
 
+
+export const PostForm= ()=>{
 
  const{register, handleSubmit, setValue}= useForm()
 
-const {createPost, getAllPost, deletePost, getPostById, updatePost }= usePost()
+const {createPost, getPostByIdPost, updatePost }= usePost()
 
 const params = useParams();
 useEffect(() => {
   // console.log(params);
   async function loadPost() {
     if (params.id) {
-      const post = await getPostById(params.id);
+      const post = await getPostByIdPost(params.id);
       //el setValue del useForm
+     
       setValue("title", post.title);
       setValue("imageURL", post.imageURL)
       setValue("description", post.description);
@@ -44,7 +46,7 @@ const navigate = useNavigate();
     <>
     <NavbarPrivate/>
     <h1>Post Form</h1>
-    <div className="bg-zinc-800 max-w-md w-full p-10 rounded-md"> 
+    <div className="bg-zinc-800 max-w-md w-full p-10 rounded-md "> 
     <form onSubmit={onSubmit}>
           <input
             className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
@@ -52,6 +54,7 @@ const navigate = useNavigate();
             placeholder="Titulo"
             {...register("title")}
             autoFocus
+       
           />
           <input
   className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"

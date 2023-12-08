@@ -17,10 +17,20 @@ res.status(200).json(allPost)
 // Lógica para obtener un post por Id los posts
 export const getPostsById = async (req, res) => {
   
-  const userId = req.params.userId; // O el nombre que le hayas dado a tu parámetro de ruta
+  const {id} = req.params; // O el nombre que le hayas dado a tu parámetro de ruta
   try {
-    const postsByUser = await Post.find({ author: userId  }).populate('comments');; // Busca los posts cuyo campo 'author' coincida con userId
+    const postsByUser = await Post.find({ author: id  }).populate('comments'); // Busca los posts cuyo campo 'author' coincida con userId
     res.status(200).json(postsByUser);
+  } catch (error) {
+    res.status(400).json({ message: "Error al buscar los posts del usuario: " + error });
+  }
+};
+export const getPostsByIdPost = async (req, res) => {
+  
+  const id = req.params.id;
+  try {
+    const posts = await Post.findById(id); 
+    res.status(200).json(posts);
   } catch (error) {
     res.status(400).json({ message: "Error al buscar los posts del usuario: " + error });
   }
@@ -54,10 +64,10 @@ export const createPost = async (req, res) => {
 
  // Lógica para Actualizar un post existente
 export const updatePost = async (req, res) => {
-  const {id}= req.params
+ 
   try {
 
-    const updatePost= await Post.findByIdAndUpdate(id, req.body, {new: true}).populate('author'); 
+    const updatePost= await Post.findByIdAndUpdate(req.params.id, req.body,  {new: true}).populate('author'); 
 
     if(!updatePost) return res.status(404).json({message: "Post no encontrado"})
     res.status(200).json(updatePost)

@@ -4,11 +4,10 @@ import { useAuth } from "../context/AuthContext"
 import {useNavigate} from "react-router-dom"
 import { useEffect } from "react"
 import NavbarPublic from "../components/NavbarPublic"
+
 export const Login = ()=>{
 
 const {register, handleSubmit, formState:{errors}} = useForm()
-
-
 const {signin, isAuth, errors:loginErrors }=useAuth()
 
 const navigate= useNavigate()
@@ -19,7 +18,7 @@ useEffect(()=>{
 },[isAuth])
 
 const onSubmit = handleSubmit(async(values)=>{
-    console.log(values)
+    //console.log(values)
 
      signin(values)
 })
@@ -29,7 +28,7 @@ const onSubmit = handleSubmit(async(values)=>{
         <div className="flex h-screen items-center justify-center">
 <div className="bg-zinc-900 max-w-md p-8 rounded-md">
 
-        <form action="">
+        <form  onSubmit={onSubmit}>
             <h1 className="text-3xl text-center font-semibold mb-5">Login</h1>
 {loginErrors.map((err,i)=>(
     <div key={i} className="bg-red-800 text-white">{err}</div>
@@ -40,7 +39,7 @@ const onSubmit = handleSubmit(async(values)=>{
             <input className="w-full bg-zinc-700 text-white px4 py-2 rounded-md my-2" type="password" placeholder="Password"
             {...register("password", {required:true})} />
 
-            <button onClick={onSubmit} className="h-10 px-6 font-semibold rounded-md bg-blue-500 text-white my-3">Loguearse</button>
+            <button   type="submit" className="h-10 px-6 font-semibold rounded-md bg-blue-500 text-white my-3">Loguearse</button>
         
         </form>
         <p className="flex justify-between mt-5">No tienes una cuenta? <Link to="/register" 

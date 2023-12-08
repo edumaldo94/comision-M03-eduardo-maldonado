@@ -1,19 +1,22 @@
-// Post.jsx
+
 import NavbarPrivate from "../components/NavbarPrivate";
 import { useAuth } from "../context/AuthContext";
 import { useEffect, useState } from "react"; // Importa useState
 import { usePost } from "../context/PostContext";
 import { PostCard } from "../components/PostCard";
-import {useComments} from "../context/CommentsContext"
+
 
 export const Post = () => {
   const { user } = useAuth();
-  const { getPostById, post } = usePost(); // No es necesario almacenar 'post' en una variable local
+
+  const { getPostById } = usePost(); // No es necesario almacenar 'post' en una variable local
 
   const [resultArray, setResultArray] = useState([]); // Nuevo estado para almacenar los datos de 'resultArray'
 
 
   useEffect(() => {
+ // signin(user)
+ 
     getPostById(user.id)
       .then((resultArray) => {
         
@@ -24,7 +27,7 @@ export const Post = () => {
       });
   }, [getPostById, user.id]); // Agrega las dependencias al arreglo de efectos
 
-  if (resultArray.length === 0) {
+  if (!resultArray || resultArray.length === 0) {
     return (
       <>
         <NavbarPrivate />

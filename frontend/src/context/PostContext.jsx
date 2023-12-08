@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { createPostReq, deletePostReq, getPostByIdReq, getPostReq, updatePostReq } from "../api/postAxios";
+import { createPostReq, deletePostReq, getPostByIdReq, getPostReq, getPostsByIdPostReq, updatePostReq } from "../api/postAxios";
 
 const PostContext= createContext()
 
@@ -47,7 +47,7 @@ const getAllPost = async () => {
   
     try {
       const res = await getPostByIdReq(id);
-   
+     
       //retornamos para que lo pueda ver en el taskFormPage
       return res.data;
 
@@ -56,6 +56,18 @@ const getAllPost = async () => {
     }
   };
 
+  const getPostByIdPost = async (id) => {
+  
+    try {
+      const res = await getPostsByIdPostReq(id);
+   
+      //retornamos para que lo pueda ver en el taskFormPage
+      return res.data;
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
   //5) Actualizar
   const updatePost = async (id, post) => {
     try {
@@ -71,6 +83,7 @@ return(
         getAllPost,
         deletePost,
         getPostById,
+        getPostByIdPost,
         updatePost,
         post
 

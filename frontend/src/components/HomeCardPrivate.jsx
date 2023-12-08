@@ -1,11 +1,8 @@
 import { usePost } from "../context/PostContext";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useComments } from "../context/CommentsContext";
 export const HomeCardPrivate = ({ post }) => {
-
-  const { deletePost } = usePost();
   const{ perfilComent }= useAuth()
   const{ createComment }= useComments()
   const [commentAuthors, setCommentAuthors] = useState([]);
@@ -62,7 +59,7 @@ export const HomeCardPrivate = ({ post }) => {
  <p className="text-2xm font-bold"> Fecha:  
       {post.createdAt ? new Date(post.createdAt).toLocaleDateString():"Fecha inválida"}
       </p>
-<div className="bg-zinc-700 max-w-md w-full p-5 rounded-md mt-4">
+<div className="bg-zinc-700 max-w-md w-full p-5 rounded-md mt-4" style={{ overflowY: 'auto', maxHeight: '900px' }}>
         <h2>Comentarios:</h2>
         <ul>
           <div className="bg-yellow-700 max-w-md w-full p-5 rounded-md mt-4">
@@ -70,7 +67,7 @@ export const HomeCardPrivate = ({ post }) => {
             <li key={post.comments[index]._id}>
               <div className="bg-zinc-900 rounded-md  mt-2">
                <p>@{author ? author.username : "Desconocido"}</p>
-              <p>Comentario: {post.comments[index].description}</p>
+              <p>{post.comments[index].description}</p>
              </div>
               {/* Otras partes del comentario */}
             </li>
@@ -93,6 +90,7 @@ export const HomeCardPrivate = ({ post }) => {
         onClick={handleCommentSubmit}
       >
         Comentar
+        
       </button>
     </div>
 

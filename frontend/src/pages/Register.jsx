@@ -1,21 +1,18 @@
 import {useForm} from "react-hook-form"
-
 import { useAuth } from "../context/AuthContext"
-import {registerReq} from "../api/auth"
 import {Link} from "react-router-dom"
 import {useNavigate} from "react-router-dom"
 import { useEffect } from "react"
 import NavbarPublic from "../components/NavbarPublic"
+
 export const Register = ()=>{
 
 const {register, handleSubmit, formState:{errors}} = useForm()
-
-
 const {signup,isAuth, errors:registerErrors }=useAuth()
 
 const navigate= useNavigate()
 useEffect(()=>{
-    if(isAuth) navigate("/post")
+    if(isAuth) navigate("/home")
 
 
 },[isAuth])

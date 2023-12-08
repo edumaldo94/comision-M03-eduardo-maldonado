@@ -11,7 +11,7 @@ color: white;
 .custom-input {
     /* Otros estilos */
     /* Cambiar el fondo del input a negro */
-    background-color: black;
+    background-color: rgb(253, 253, 253);
     /* Definir el color del texto para que sea visible en el fondo negro */
-    color: white; /* Puedes ajustar el color del texto a tu preferencia */
+    color: rgb(0, 0, 0); /* Puedes ajustar el color del texto a tu preferencia */
   }
